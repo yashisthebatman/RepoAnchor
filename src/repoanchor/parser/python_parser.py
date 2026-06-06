@@ -1,7 +1,10 @@
-﻿import ast
+import ast
 from typing import List
 
 class CodeSkeletonizer(ast.NodeVisitor):
+    """
+    AST Visitor to decompose Python files down to structural signatures.
+    """
     def __init__(self):
         self.output_buffer: List[str] = []
         self.indentation_level = 0
@@ -10,6 +13,7 @@ class CodeSkeletonizer(ast.NodeVisitor):
         return "    " * (self.indentation_level + offset)
 
     def visit_Module(self, node: ast.Module):
+        # Capture module-level docstring if it exists
         docstring = ast.get_docstring(node)
         if docstring:
             self.output_buffer.append(f'"""{docstring}"""\n')
@@ -36,12 +40,15 @@ class CodeSkeletonizer(ast.NodeVisitor):
         if docstring:
             self.output_buffer.append(self._indent() + f'"""{docstring}"""')
         
+        # Track output buffer size to check if child members exist
         initial_len = len(self.output_buffer)
         
+        # Traverse structural elements nested within the class definition
         for item in node.body:
             if isinstance(item, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
                 self.visit(item)
         
+        # Fallback to standard pass statement if class is empty
         if len(self.output_buffer) == initial_len:
             self.output_buffer.append(self._indent() + "pass")
             

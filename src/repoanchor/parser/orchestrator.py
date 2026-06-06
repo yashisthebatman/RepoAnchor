@@ -1,8 +1,12 @@
-﻿import ast
+import ast
 from .python_parser import CodeSkeletonizer
 from ..cache.manager import CacheManager
 
 def process_python_file(filepath: str, cache_manager: CacheManager) -> str:
+    """
+    Inspects, parses, and skeletonizes a Python file. Resolves syntax failures 
+    by injecting warnings and reverting to cached baseline definitions.
+    """
     if not cache_manager.is_changed(filepath):
         cached_skel = cache_manager.get_cached_skeleton(filepath)
         if cached_skel is not None:
