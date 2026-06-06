@@ -13,7 +13,7 @@ def process_python_file(filepath: str, cache_manager: CacheManager) -> str:
             return cached_skel
 
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(filepath, "r", encoding="utf-8-sig") as f:
             content = f.read()
         
         parsed_ast = ast.parse(content, filename=filepath)

@@ -35,7 +35,7 @@ class ParserRegistry:
             return f"# Error: File {filepath} not found.", {}, set()
 
         try:
-            with open(filepath, "r", encoding="utf-8") as f:
+            with open(filepath, "r", encoding="utf-8-sig") as f:
                 content = f.read()
         except OSError as e:
             return f"# Error: Unable to read file {filepath}. {str(e)}", {}, set()
