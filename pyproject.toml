@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repoanchor"
+version = "0.1.0"
+description = "Autonomous Semantic Context Engine"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.scripts]
+repoanchor = "repoanchor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
