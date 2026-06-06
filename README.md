@@ -93,10 +93,10 @@ RepoAnchor can be executed manually at any point or controlled via CLI parameter
 
 ```bash
 # Run a full scan over all supported files in the repository
-repoanchor
+python -m repoanchor.cli
 
-# Specify alternate paths for outputs or caches
-repoanchor --output docs/blueprints.md --cache-file build/cache.json
+# For running an automatic git hook
+python -m repoanchor.cli --install
 ```
 
 ### CLI Arguments Summary
